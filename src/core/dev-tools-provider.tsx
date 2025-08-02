@@ -1,21 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 import { pluginManager } from "./plugin-manager";
 import { DevtoolsPanel } from "./dev-tools-panel";
 
-type DevtoolsContextType = {
-  enabledPlugins: string[];
-  togglePlugin: (id: string) => void;
-};
-
-const DevtoolsContext = createContext<DevtoolsContextType | undefined>(
-  undefined
-);
-
-export const DevtoolsProvider: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+export const DevtoolsProvider = () => {
   const [enabledPlugins, setEnabledPlugins] = useState<string[]>([]);
 
   const togglePlugin = (id: string) => {
@@ -55,16 +44,10 @@ export const DevtoolsProvider: React.FC<{
 
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
-      <DevtoolsContext.Provider value={{ togglePlugin, enabledPlugins }}>
-        {children}
-        <DevtoolsPanel />
-      </DevtoolsContext.Provider>
+      <DevtoolsPanel
+        enabledPlugins={enabledPlugins}
+        togglePlugin={togglePlugin}
+      />
     </ErrorBoundary>
   );
-};
-
-export const useDevtools = () => {
-  const ctx = useContext(DevtoolsContext);
-  if (!ctx) throw new Error("useDevtools must be used inside DevtoolsProvider");
-  return ctx;
 };

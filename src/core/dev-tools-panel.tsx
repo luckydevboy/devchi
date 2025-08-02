@@ -1,9 +1,12 @@
-import React from "react";
 import { pluginManager } from "./plugin-manager";
-import { useDevtools } from "./dev-tools-provider";
 
-export const DevtoolsPanel: React.FC = () => {
-  const { togglePlugin, enabledPlugins } = useDevtools();
+export const DevtoolsPanel = ({
+  enabledPlugins,
+  togglePlugin,
+}: {
+  enabledPlugins: string[];
+  togglePlugin: (id: string) => void;
+}) => {
   const plugins = pluginManager.getPlugins();
 
   return (
