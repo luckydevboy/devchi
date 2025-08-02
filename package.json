@@ -1,7 +1,7 @@
 {
   "name": "devtools",
-  "main": "dist/devtools-hub.umd.js",
-  "module": "dist/devtools-hub.es.js",
+  "main": "dist/devtools.umd.js",
+  "module": "dist/devtools.es.js",
   "types": "dist/types/index.d.ts",
   "private": true,
   "version": "0.0.0",
