@@ -4,7 +4,7 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { pluginManager } from "./plugin-manager";
 import { DevtoolsPanel } from "./dev-tools-panel";
 
-export const DevtoolsProvider = () => {
+export const Devtools = () => {
   const [enabledPlugins, setEnabledPlugins] = useState<string[]>([]);
 
   const togglePlugin = (id: string) => {
