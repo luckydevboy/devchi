@@ -4,12 +4,14 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { DevtoolsPanel } from "./dev-tools-panel";
 import { PLUGIN_ID, type PluginID } from "../plugins/constants";
 import type { DevToolPlugin } from "./types";
+// TODO: Import plugins when are registered.
 import { ErudaPlugin } from "../plugins/eruda";
 
 const mapPluginNameToPlugin: Record<PLUGIN_ID, DevToolPlugin> = {
   [PLUGIN_ID.ERUDA_3]: ErudaPlugin,
 };
 
+// TODO: Restrict this component in production mode. Just plugins with query param are allowed.
 export const Devtools = ({ plugins }: { plugins: PluginID[] }) => {
   const [enabledPlugins, setEnabledPlugins] = useState<PluginID[]>([]);
 
