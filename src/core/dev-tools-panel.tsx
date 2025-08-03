@@ -1,14 +1,19 @@
-import { pluginManager } from "./plugin-manager";
+// TODO: follow guidelines
+// TODO: how to implement ui components?
+// TODO: add eslint config to sort imports
+import React from "react";
+import type { PluginID } from "../plugins/constants";
+import type { DevToolPlugin } from "./types";
 
 export const DevtoolsPanel = ({
+  registeredPlugins,
   enabledPlugins,
   togglePlugin,
 }: {
-  enabledPlugins: string[];
-  togglePlugin: (id: string) => void;
+  registeredPlugins: DevToolPlugin[];
+  enabledPlugins: PluginID[];
+  togglePlugin: (id: PluginID) => void;
 }) => {
-  const plugins = pluginManager.getPlugins();
-
   return (
     <div
       style={{
@@ -31,7 +36,7 @@ export const DevtoolsPanel = ({
           marginBlockEnd: 0,
         }}
       >
-        {plugins.map((plugin) => (
+        {registeredPlugins.map((plugin) => (
           <li key={plugin.id}>
             <label>
               <input
@@ -44,9 +49,9 @@ export const DevtoolsPanel = ({
           </li>
         ))}
       </ul>
-      {plugins.map((plugin) =>
+      {registeredPlugins.map((plugin) =>
         enabledPlugins.includes(plugin.id) && plugin.render ? (
-          <div key={plugin.id}>{plugin.render()}</div>
+          <React.Fragment key={plugin.id}>{plugin.render()}</React.Fragment>
         ) : null
       )}
     </div>

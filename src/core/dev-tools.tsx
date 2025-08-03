@@ -1,15 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
-import { pluginManager } from "./plugin-manager";
 import { DevtoolsPanel } from "./dev-tools-panel";
+import { PLUGIN_ID, type PluginID } from "../plugins/constants";
+import type { DevToolPlugin } from "./types";
+import { ErudaPlugin } from "../plugins/eruda";
 
-export const Devtools = () => {
-  const [enabledPlugins, setEnabledPlugins] = useState<string[]>([]);
+const mapPluginNameToPlugin: Record<PLUGIN_ID, DevToolPlugin> = {
+  [PLUGIN_ID.ERUDA_3]: ErudaPlugin,
+};
 
-  const togglePlugin = (id: string) => {
+export const Devtools = ({ plugins }: { plugins: PluginID[] }) => {
+  const [enabledPlugins, setEnabledPlugins] = useState<PluginID[]>([]);
+
+  const registerPlugins = plugins.map((id) => mapPluginNameToPlugin[id]);
+
+  const togglePlugin = (id: PluginID) => {
     // Check if the plugin is registered
-    const plugin = pluginManager.getPluginById(id);
+    const plugin = mapPluginNameToPlugin[id];
     if (!plugin) return;
 
     const isEnabled = enabledPlugins.includes(id);
@@ -21,16 +29,6 @@ export const Devtools = () => {
       setEnabledPlugins((prev) => [...prev, id]);
     }
   };
-
-  useEffect(() => {
-    // Enable plugins that are enabledByDefault is true
-    pluginManager.getPlugins().forEach((plugin) => {
-      if (plugin.enabledByDefault) {
-        plugin.onEnable?.();
-        setEnabledPlugins((prev) => [...prev, plugin.id]);
-      }
-    });
-  }, []);
 
   function fallbackRender({ error, resetErrorBoundary }: FallbackProps) {
     return (
@@ -45,6 +43,7 @@ export const Devtools = () => {
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <DevtoolsPanel
+        registeredPlugins={registerPlugins}
         enabledPlugins={enabledPlugins}
         togglePlugin={togglePlugin}
       />

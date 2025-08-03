@@ -24,3 +24,5 @@
   },
   "include": ["src"]
 }
+
+// TODO: Please recheck all tsconfig.*

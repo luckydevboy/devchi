@@ -1,5 +1,5 @@
-export enum PLUGIN_NAMES {
+export enum PLUGIN_ID {
   ERUDA_3 = "eruda@3",
 }
 
-export type PluginName = `${PLUGIN_NAMES}`;
+export type PluginID = `${PLUGIN_ID}`;

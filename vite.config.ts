@@ -30,3 +30,5 @@ export default defineConfig({
     },
   },
 });
+
+// FIXME: node_modules/eruda/eruda.js (2:424693): Use of eval in "node_modules/eruda/eruda.js" is strongly discouraged as it poses security risks and may cause issues with minification.
