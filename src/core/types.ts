@@ -6,7 +6,7 @@ export interface DevToolPlugin {
   icon?: React.ReactNode;
   // TODO: Add query param support for plugins like Eruda to trigger them in production mode.
   // queryParam?: string;
-  render?: () => React.ReactNode;
+  render?: (arg?: any) => React.ReactNode;
   onEnable?: () => void;
   onDisable?: () => void;
 }

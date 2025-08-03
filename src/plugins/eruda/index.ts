@@ -3,6 +3,8 @@ import { PLUGIN_ID } from "../constants";
 
 let erudaInstance: typeof import("eruda") | null = null;
 
+// TODO: Rename *Plugin to *<version>Plugin
+// TODO: Just a TypeScript file instead of put them inside a folder.
 export const ErudaPlugin: DevToolPlugin = {
   id: PLUGIN_ID.ERUDA_3,
   name: "Eruda Console",
@@ -17,13 +19,7 @@ export const ErudaPlugin: DevToolPlugin = {
     if (erudaInstance) {
       try {
         erudaInstance.default.destroy();
-
-
-        // Remove all Eruda localStorage keys
-        Object.keys(localStorage)
-          .filter((key) => key.startsWith("eruda-"))
-          .forEach((key) => localStorage.removeItem(key));
-
+        // TODO: what about removing Eruda from localStorage?
         erudaInstance = null;
       } catch (err) {
         console.warn("Failed to destroy Eruda:", err);
