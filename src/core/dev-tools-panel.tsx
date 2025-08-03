@@ -1,7 +1,7 @@
 // TODO: how to implement ui components?
-// TODO: add eslint config to sort imports and space between each import types
 // TODO: make this panel to be hidden or repositioned
 // TODO: make plugins positioning to be configurable
+// TODO: consider react-query-devtools wont work in production mode
 import React from "react";
 
 import type { DevToolPlugin } from "./types";

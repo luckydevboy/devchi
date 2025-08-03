@@ -1,11 +1,11 @@
 {
-  "name": "devtools",
+  "name": "@mrghasemi1992/devtools",
   "main": "dist/devtools.umd.js",
   "module": "dist/devtools.es.js",
   "types": "dist/types/index.d.ts",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
