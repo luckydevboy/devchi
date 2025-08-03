@@ -2,8 +2,8 @@ import { useState } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 import { DevtoolsPanel } from "./dev-tools-panel";
-import { PLUGIN_ID, type PluginID } from "../plugins/constants";
 import type { DevToolPlugin } from "./types";
+import { PLUGIN_ID, type PluginID } from "../plugins/constants";
 // TODO: Import plugins when are registered to avoid importing them in the main bundle.
 import { ErudaPlugin } from "../plugins/eruda";
 import { ReactQueryDevtoolsPlugin } from "../plugins/react-query-devtools";
