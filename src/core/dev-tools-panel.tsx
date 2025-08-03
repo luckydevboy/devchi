@@ -4,20 +4,21 @@
 // TODO: make this panel to be hidden or repositioned
 // TODO: make plugins positioning to be configurable
 import React from "react";
+
 import type { PluginID } from "../plugins/constants";
 import type { DevToolPlugin } from "./types";
 
-export const DevtoolsPanel = ({
-  registeredPlugins,
-  enabledPlugins,
-  togglePlugin,
-  reactQueryClient,
-}: {
+interface IProps {
   registeredPlugins: DevToolPlugin[];
   enabledPlugins: PluginID[];
   togglePlugin: (id: PluginID) => void;
   reactQueryClient: any;
-}) => {
+}
+
+export function DevtoolsPanel(props: IProps) {
+  const { registeredPlugins, enabledPlugins, togglePlugin, reactQueryClient } =
+    props;
+
   return (
     <div
       style={{
@@ -54,6 +55,7 @@ export const DevtoolsPanel = ({
           </li>
         ))}
       </ul>
+
       {registeredPlugins.map((plugin) =>
         enabledPlugins.includes(plugin.id) && plugin.render ? (
           <React.Fragment key={plugin.id}>
@@ -65,4 +67,4 @@ export const DevtoolsPanel = ({
       )}
     </div>
   );
-};
+}

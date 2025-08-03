@@ -16,13 +16,16 @@ const mapPluginNameToPlugin: Record<PLUGIN_ID, DevToolPlugin> = {
 // TODO: Restrict this component in production mode. Just plugins with query param are allowed. Handle bundle size.
 // TODO: save enabled plugins in localStorage so for every page reload it will be enabled.
 // TODO: If one of plugin are react-query-devtools-*, make sure reactQueryClient is passed.
-export const Devtools = ({
-  plugins,
-  reactQueryClient,
-}: {
+
+interface IProps {
   plugins: PluginID[];
+  // TODO: Add type for reactQueryClient
   reactQueryClient?: any;
-}) => {
+}
+
+export function Devtools(props: IProps) {
+  const { plugins, reactQueryClient } = props;
+
   const [enabledPlugins, setEnabledPlugins] = useState<PluginID[]>([]);
 
   const registerPlugins = plugins.map((id) => mapPluginNameToPlugin[id]);
@@ -61,4 +64,4 @@ export const Devtools = ({
       />
     </ErrorBoundary>
   );
-};
+}
