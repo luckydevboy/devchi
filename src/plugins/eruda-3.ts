@@ -1,9 +1,9 @@
 import { PLUGIN_ID } from "./constants";
-import type { DevToolPlugin } from "../core/types";
+import type { Plugin } from "../types";
 
 let erudaInstance: typeof import("eruda") | null = null;
 
-export const Eruda3Plugin: DevToolPlugin = {
+export const Eruda3Plugin: Plugin = {
   id: PLUGIN_ID.ERUDA_3,
   name: "Eruda Console 3",
   onEnable: async () => {
