@@ -4,10 +4,9 @@ import type { DevToolPlugin } from "../core/types";
 let erudaInstance: typeof import("eruda") | null = null;
 
 // TODO: Rename *Plugin to *<version>Plugin
-// TODO: Just a TypeScript file instead of put them inside a folder.
-export const ErudaPlugin: DevToolPlugin = {
+export const Eruda3Plugin: DevToolPlugin = {
   id: PLUGIN_ID.ERUDA_3,
-  name: "Eruda Console",
+  name: "Eruda Console 3",
   onEnable: async () => {
     if (erudaInstance) return;
 

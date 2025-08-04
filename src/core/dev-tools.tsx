@@ -5,12 +5,12 @@ import { DevtoolsPanel } from "./dev-tools-panel";
 import type { DevToolPlugin } from "./types";
 import { PLUGIN_ID, type PluginID } from "../plugins/constants";
 // TODO: Import plugins when are registered to avoid importing them in the main bundle.
-import { ErudaPlugin } from "../plugins/eruda";
-import { ReactQueryDevtoolsPlugin } from "../plugins/react-query-devtools";
+import { Eruda3Plugin } from "../plugins/eruda-3";
+import { ReactQueryDevtools5Plugin } from "../plugins/react-query-devtools-5";
 
 const mapPluginNameToPlugin: Record<PLUGIN_ID, DevToolPlugin> = {
-  [PLUGIN_ID.ERUDA_3]: ErudaPlugin,
-  [PLUGIN_ID.REACT_QUERY_Devtools_5]: ReactQueryDevtoolsPlugin,
+  [PLUGIN_ID.ERUDA_3]: Eruda3Plugin,
+  [PLUGIN_ID.REACT_QUERY_Devtools_5]: ReactQueryDevtools5Plugin,
 };
 
 // TODO: Restrict this component in production mode. Just plugins with query param are allowed. Handle bundle size.

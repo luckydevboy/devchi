@@ -4,9 +4,9 @@ import { createPortal } from "react-dom";
 import { PLUGIN_ID } from "./constants";
 import type { DevToolPlugin } from "../core/types";
 
-export const ReactQueryDevtoolsPlugin: DevToolPlugin = {
+export const ReactQueryDevtools5Plugin: DevToolPlugin = {
   id: PLUGIN_ID.REACT_QUERY_Devtools_5,
-  name: "React Query Devtools",
+  name: "React Query Devtools 5",
   render: (client) => {
     let container = document.getElementById("react-query-devtools");
 
