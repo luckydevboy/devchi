@@ -1,6 +1,7 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 import path from "path";
+
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
@@ -30,5 +31,3 @@ export default defineConfig({
     },
   },
 });
-
-// FIXME: node_modules/eruda/eruda.js (2:424693): Use of eval in "node_modules/eruda/eruda.js" is strongly discouraged as it poses security risks and may cause issues with minification.

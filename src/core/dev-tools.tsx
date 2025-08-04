@@ -4,7 +4,6 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { DevtoolsPanel } from "./dev-tools-panel";
 import type { DevToolPlugin } from "./types";
 import { PLUGIN_ID, type PluginID } from "../plugins/constants";
-// TODO: Import plugins when are registered to avoid importing them in the main bundle.
 import { Eruda3Plugin } from "../plugins/eruda-3";
 import { ReactQueryDevtools5Plugin } from "../plugins/react-query-devtools-5";
 
@@ -13,13 +12,8 @@ const mapPluginNameToPlugin: Record<PLUGIN_ID, DevToolPlugin> = {
   [PLUGIN_ID.REACT_QUERY_Devtools_5]: ReactQueryDevtools5Plugin,
 };
 
-// TODO: Restrict this component in production mode. Just plugins with query param are allowed. Handle bundle size.
-// TODO: save enabled plugins in localStorage so for every page reload it will be enabled.
-// TODO: If one of plugin are react-query-devtools-*, make sure reactQueryClient is passed.
-
 interface IProps {
   plugins: PluginID[];
-  // TODO: Add type for reactQueryClient
   reactQueryClient?: any;
 }
 

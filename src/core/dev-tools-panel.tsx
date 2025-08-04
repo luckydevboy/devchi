@@ -1,7 +1,3 @@
-// TODO: how to implement ui components?
-// TODO: make this panel to be hidden or repositioned
-// TODO: make plugins positioning to be configurable
-// TODO: consider react-query-devtools wont work in production mode
 import React from "react";
 
 import type { DevToolPlugin } from "./types";
@@ -11,7 +7,7 @@ interface IProps {
   registeredPlugins: DevToolPlugin[];
   enabledPlugins: PluginID[];
   togglePlugin: (id: PluginID) => void;
-  reactQueryClient: any;
+  reactQueryClient?: any;
 }
 
 export function DevtoolsPanel(props: IProps) {

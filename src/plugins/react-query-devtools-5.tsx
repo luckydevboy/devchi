@@ -22,7 +22,6 @@ export const ReactQueryDevtools5Plugin: DevToolPlugin = {
     );
   },
   onDisable: () => {
-    // TODO: what about removing React Query Devtools from localStorage?
     const container = document.getElementById("react-query-devtools");
     if (container) {
       container.remove();
