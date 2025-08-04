@@ -16,8 +16,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "DevTools",
-      fileName: (format) => `devtools.${format}.js`,
+      name: "Devchi",
+      fileName: (format) => `devchi.${format}.js`,
       formats: ["es", "umd"],
     },
     rollupOptions: {

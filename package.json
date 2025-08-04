@@ -1,7 +1,7 @@
 {
-  "name": "@mrghasemi1992/devtools",
-  "main": "dist/devtools.umd.js",
-  "module": "dist/devtools.es.js",
+  "name": "devchi",
+  "main": "dist/devchi.umd.js",
+  "module": "dist/devchi.es.js",
   "types": "dist/types/index.d.ts",
   "version": "0.0.0",
   "type": "module",
