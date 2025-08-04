@@ -1,8 +1,8 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createPortal } from "react-dom";
 
-import type { DevToolPlugin } from "../../core/types";
-import { PLUGIN_ID } from "../constants";
+import { PLUGIN_ID } from "./constants";
+import type { DevToolPlugin } from "../core/types";
 
 export const ReactQueryDevtoolsPlugin: DevToolPlugin = {
   id: PLUGIN_ID.REACT_QUERY_Devtools_5,

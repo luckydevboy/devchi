@@ -1,5 +1,5 @@
-import type { DevToolPlugin } from "../../core/types";
-import { PLUGIN_ID } from "../constants";
+import { PLUGIN_ID } from "./constants";
+import type { DevToolPlugin } from "../core/types";
 
 let erudaInstance: typeof import("eruda") | null = null;
 
