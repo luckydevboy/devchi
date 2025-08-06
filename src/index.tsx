@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 import { PLUGIN_ID } from "./plugins/constants";
@@ -13,6 +14,9 @@ const mapPluginNameToPlugin: Record<PLUGIN_ID, () => Promise<Plugin>> = {
       (res) => res.ReactQueryDevtools5Plugin
     ),
 };
+
+const DEVCHI_PANEL_ID = "devchi";
+const DEVCHI_Z_INDEX = 99999999;
 
 interface IProps {
   plugins: PluginID[];
@@ -64,7 +68,15 @@ export default function Devchi(props: IProps) {
     );
   }
 
-  return (
+  let container = document.getElementById(DEVCHI_PANEL_ID);
+
+  if (!container) {
+    container = document.createElement("div");
+    container.id = DEVCHI_PANEL_ID;
+    document.documentElement.insertBefore(container, document.body);
+  }
+
+  return createPortal(
     <ErrorBoundary fallbackRender={fallbackRender}>
       <div
         style={{
@@ -74,7 +86,7 @@ export default function Devchi(props: IProps) {
           transform: "translateY(50%)",
           border: "1px solid #ddd",
           padding: 10,
-          zIndex: 9999,
+          zIndex: DEVCHI_Z_INDEX,
           textAlign: "left",
           backgroundColor: "black",
         }}
@@ -112,6 +124,7 @@ export default function Devchi(props: IProps) {
           ) : null
         )}
       </div>
-    </ErrorBoundary>
+    </ErrorBoundary>,
+    container
   );
 }

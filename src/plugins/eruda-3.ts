@@ -1,23 +1,33 @@
+import eruda from "eruda";
+
 import { PLUGIN_ID } from "./constants";
 import type { Plugin } from "../types";
 
-let erudaInstance: typeof import("eruda") | null = null;
+let erudaInitialized = false;
+
+const ERUDA_BTN_CLASS = "eruda-entry-btn";
 
 export const Eruda3Plugin: Plugin = {
   id: PLUGIN_ID.ERUDA_3,
   name: "Eruda Console 3",
   onEnable: async () => {
-    if (erudaInstance) return;
+    if (erudaInitialized) return;
 
-    const eruda = await import("eruda");
-    eruda.default.init();
-    erudaInstance = eruda;
+    eruda.init({
+      useShadowDom: false,
+      defaults: { displaySize: 80 },
+    });
+    erudaInitialized = true;
+
+    document.querySelector(`.${ERUDA_BTN_CLASS}`)?.remove();
+
+    eruda.show();
   },
   onDisable: () => {
-    if (erudaInstance) {
+    if (erudaInitialized) {
       try {
-        erudaInstance.default.destroy();
-        erudaInstance = null;
+        eruda.destroy();
+        erudaInitialized = false;
       } catch (err) {
         console.warn("Failed to destroy Eruda:", err);
       }
