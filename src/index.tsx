@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 import { PLUGIN_ID } from "./plugins/constants";
-import { Eruda3Plugin } from "./plugins/eruda-3";
-import { ReactQueryDevtools5Plugin } from "./plugins/react-query-devtools-5";
 import type { PluginID } from "./plugins/types";
 import type { Plugin } from "./types";
 
-const mapPluginNameToPlugin: Record<PLUGIN_ID, Plugin> = {
-  [PLUGIN_ID.ERUDA_3]: Eruda3Plugin,
-  [PLUGIN_ID.REACT_QUERY_Devtools_5]: ReactQueryDevtools5Plugin,
+const mapPluginNameToPlugin: Record<PLUGIN_ID, () => Promise<Plugin>> = {
+  [PLUGIN_ID.ERUDA_3]: async () =>
+    await import("./plugins/eruda-3").then((res) => res.Eruda3Plugin),
+  [PLUGIN_ID.REACT_QUERY_Devtools_5]: async () =>
+    await import("./plugins/react-query-devtools-5").then(
+      (res) => res.ReactQueryDevtools5Plugin
+    ),
 };
 
 interface IProps {
@@ -22,12 +24,25 @@ export default function Devchi(props: IProps) {
   const { plugins, reactQueryClient } = props;
 
   const [enabledPlugins, setEnabledPlugins] = useState<PluginID[]>([]);
+  const [registeredPlugins, setRegisteredPlugins] = useState<Plugin[]>([]);
 
-  const registeredPlugins = plugins.map((id) => mapPluginNameToPlugin[id]);
+  useEffect(() => {
+    const loadPlugins = async () => {
+      const loaded = await Promise.all(
+        plugins.map(async (id) => {
+          const loadPlugin = mapPluginNameToPlugin[id];
+          const plugin = await loadPlugin();
+          return plugin;
+        })
+      );
+      setRegisteredPlugins(loaded);
+    };
+
+    loadPlugins();
+  }, [plugins]);
 
   const togglePlugin = (id: PluginID) => {
-    // Check if the plugin is registered
-    const plugin = mapPluginNameToPlugin[id];
+    const plugin = registeredPlugins.find((plugin) => plugin.id === id);
     if (!plugin) return;
 
     const isEnabled = enabledPlugins.includes(id);
