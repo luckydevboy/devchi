@@ -117,7 +117,7 @@ export default function Devchi(props: IProps) {
         {registeredPlugins.map((plugin) =>
           enabledPlugins.includes(plugin.id) && plugin.render ? (
             <React.Fragment key={plugin.id}>
-              {plugin.id === "react-query-devtools@5"
+              {plugin.id === PLUGIN_ID.REACT_QUERY_Devtools_5
                 ? plugin.render(reactQueryClient)
                 : plugin.render()}
             </React.Fragment>
