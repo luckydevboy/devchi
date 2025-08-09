@@ -1,0 +1,24 @@
+.panel {
+  /* Optional block-level styles later */
+}
+
+.panel__title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.panel__description {
+  font-size: 14px;
+  color: #5c6673;
+}
+
+.panel__switch-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.panel__switch-wrapper-title {
+  font-weight: 600;
+}

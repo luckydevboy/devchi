@@ -1,0 +1,181 @@
+/* styles/scoped-normalize.module.css */
+
+.devchi-root html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+.devchi-root body {
+  margin: 0;
+}
+
+.devchi-root main {
+  display: block;
+}
+
+.devchi-root h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.devchi-root hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+.devchi-root pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+.devchi-root a {
+  background-color: transparent;
+}
+
+.devchi-root abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+.devchi-root b,
+.devchi-root strong {
+  font-weight: bolder;
+}
+
+.devchi-root code,
+.devchi-root kbd,
+.devchi-root samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+.devchi-root small {
+  font-size: 80%;
+}
+
+.devchi-root sub,
+.devchi-root sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.devchi-root sub {
+  bottom: -0.25em;
+}
+
+.devchi-root sup {
+  top: -0.5em;
+}
+
+.devchi-root img {
+  border-style: none;
+}
+
+.devchi-root button,
+.devchi-root input,
+.devchi-root optgroup,
+.devchi-root select,
+.devchi-root textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+.devchi-root button,
+.devchi-root input {
+  overflow: visible;
+}
+
+.devchi-root button,
+.devchi-root select {
+  text-transform: none;
+}
+
+.devchi-root button,
+.devchi-root [type="button"],
+.devchi-root [type="reset"],
+.devchi-root [type="submit"] {
+  -webkit-appearance: button;
+}
+
+.devchi-root button::-moz-focus-inner,
+.devchi-root [type="button"]::-moz-focus-inner,
+.devchi-root [type="reset"]::-moz-focus-inner,
+.devchi-root [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+.devchi-root button:-moz-focusring,
+.devchi-root [type="button"]:-moz-focusring,
+.devchi-root [type="reset"]:-moz-focusring,
+.devchi-root [type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.devchi-root fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+.devchi-root legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+.devchi-root progress {
+  vertical-align: baseline;
+}
+
+.devchi-root textarea {
+  overflow: auto;
+}
+
+.devchi-root [type="checkbox"],
+.devchi-root [type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.devchi-root [type="number"]::-webkit-inner-spin-button,
+.devchi-root [type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.devchi-root [type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.devchi-root [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.devchi-root ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+.devchi-root details {
+  display: block;
+}
+
+.devchi-root summary {
+  display: list-item;
+}
+
+.devchi-root template {
+  display: none;
+}
+
+.devchi-root [hidden] {
+  display: none;
+}

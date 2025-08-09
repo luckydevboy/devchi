@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
+import DevchiPanel from "./components/devchi-panel";
+import Root from "./components/root";
+import SpeedDial from "./components/speed-dial";
 import { PLUGIN_ID } from "./plugins/constants";
 import type { PluginID } from "./plugins/types";
 import type { Plugin } from "./types";
@@ -10,13 +12,12 @@ const mapPluginNameToPlugin: Record<PLUGIN_ID, () => Promise<Plugin>> = {
   [PLUGIN_ID.ERUDA_3]: async () =>
     await import("./plugins/eruda-3").then((res) => res.Eruda3Plugin),
   [PLUGIN_ID.REACT_QUERY_Devtools_5]: async () =>
-    await import("./plugins/react-query-devtools-5").then(
-      (res) => res.ReactQueryDevtools5Plugin
+    await import("./plugins/react-query-devtools-5").then((res) =>
+      res.createReactQueryDevtools5Plugin()
     ),
 };
 
 const DEVCHI_PANEL_ID = "devchi";
-const DEVCHI_Z_INDEX = 99999999;
 
 interface IProps {
   plugins: PluginID[];
@@ -27,8 +28,9 @@ interface IProps {
 export default function Devchi(props: IProps) {
   const { plugins, reactQueryClient } = props;
 
-  const [enabledPlugins, setEnabledPlugins] = useState<PluginID[]>([]);
   const [registeredPlugins, setRegisteredPlugins] = useState<Plugin[]>([]);
+  const [enabledPlugins, setEnabledPlugins] = useState<Plugin[]>([]);
+  const [isPanelOpen, setIsPanelOpen] = useState(true);
 
   useEffect(() => {
     const loadPlugins = async () => {
@@ -45,29 +47,6 @@ export default function Devchi(props: IProps) {
     loadPlugins();
   }, [plugins]);
 
-  const togglePlugin = (id: PluginID) => {
-    const plugin = registeredPlugins.find((plugin) => plugin.id === id);
-    if (!plugin) return;
-
-    const isEnabled = enabledPlugins.includes(id);
-    if (isEnabled) {
-      plugin.onDisable?.();
-      setEnabledPlugins((prev) => prev.filter((p) => p !== id));
-    } else {
-      plugin.onEnable?.();
-      setEnabledPlugins((prev) => [...prev, id]);
-    }
-  };
-
-  function fallbackRender({ error }: FallbackProps) {
-    return (
-      <div role="alert">
-        <p>Something went wrong:</p>
-        <pre style={{ color: "red" }}>{error.message}</pre>
-      </div>
-    );
-  }
-
   let container = document.getElementById(DEVCHI_PANEL_ID);
 
   if (!container) {
@@ -76,55 +55,34 @@ export default function Devchi(props: IProps) {
     document.documentElement.insertBefore(container, document.body);
   }
 
-  return createPortal(
-    <ErrorBoundary fallbackRender={fallbackRender}>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "50%",
-          left: 10,
-          transform: "translateY(50%)",
-          border: "1px solid #ddd",
-          padding: 10,
-          zIndex: DEVCHI_Z_INDEX,
-          textAlign: "left",
-          backgroundColor: "black",
-        }}
-      >
-        <strong>Devchi</strong>
-        <ul
-          style={{
-            listStyleType: "none",
-            marginBlockStart: 0,
-            paddingInlineStart: 0,
-            marginBlockEnd: 0,
-          }}
-        >
-          {registeredPlugins.map((plugin) => (
-            <li key={plugin.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={enabledPlugins.includes(plugin.id)}
-                  onChange={() => togglePlugin(plugin.id)}
-                />
-                {plugin.name}
-              </label>
-            </li>
-          ))}
-        </ul>
+  function renderEnabledPlugins() {
+    return enabledPlugins.map((plugin) => {
+      if (plugin?.render) {
+        const input =
+          plugin.id === PLUGIN_ID.REACT_QUERY_Devtools_5
+            ? reactQueryClient
+            : undefined;
 
-        {registeredPlugins.map((plugin) =>
-          enabledPlugins.includes(plugin.id) && plugin.render ? (
-            <React.Fragment key={plugin.id}>
-              {plugin.id === PLUGIN_ID.REACT_QUERY_Devtools_5
-                ? plugin.render(reactQueryClient)
-                : plugin.render()}
-            </React.Fragment>
-          ) : null
-        )}
-      </div>
-    </ErrorBoundary>,
+        return plugin.render(input);
+      }
+    });
+  }
+
+  return createPortal(
+    <Root>
+      <DevchiPanel
+        isPanelOpen={isPanelOpen}
+        onCloseTrigger={() => setIsPanelOpen(false)}
+        setEnabledPluginsTrigger={setEnabledPlugins}
+        enabledPlugins={enabledPlugins}
+        registeredPlugins={registeredPlugins}
+      />
+      <SpeedDial
+        enabledPlugins={enabledPlugins}
+        setIsPanelOpenTrigger={setIsPanelOpen}
+      />
+      {renderEnabledPlugins()}
+    </Root>,
     container
   );
 }

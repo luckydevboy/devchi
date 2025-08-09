@@ -1,6 +1,7 @@
 import eruda from "eruda";
 
 import { PLUGIN_ID } from "./constants";
+import DefaultPluginPanel from "../components/default-plugin-panel";
 import type { Plugin } from "../types";
 
 let erudaInitialized = false;
@@ -9,7 +10,9 @@ const ERUDA_BTN_CLASS = "eruda-entry-btn";
 
 export const Eruda3Plugin: Plugin = {
   id: PLUGIN_ID.ERUDA_3,
-  name: "Eruda Console 3",
+  shortName: "ER",
+  fullName: "ERUDA",
+  description: "ERUDA mobile console",
   onEnable: async () => {
     if (erudaInitialized) return;
 
@@ -33,4 +36,13 @@ export const Eruda3Plugin: Plugin = {
       }
     }
   },
+  renderPanel: (setEnabledPluginsTrigger, onRender) => (
+    <DefaultPluginPanel
+      onRenderTrigger={onRender}
+      setEnabledPluginsTrigger={setEnabledPluginsTrigger}
+      title="Eruda"
+      description="Eruda mobile console"
+      pluginId={PLUGIN_ID.ERUDA_3}
+    />
+  ),
 };
