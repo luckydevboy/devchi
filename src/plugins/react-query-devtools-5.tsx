@@ -90,7 +90,7 @@ export function createReactQueryDevtools5Plugin(): Plugin {
     fullName: "React Query Devtools",
     description: "React Query Devtools",
     render: (client) => <Wrapper client={client} />,
-    onEnable: () => setOpenState?.(true), // open when enabled
+    onEnable: () => setOpenState?.(true),
     onDisable: () => {
       setOpenState?.(false);
       const container = document.getElementById(
