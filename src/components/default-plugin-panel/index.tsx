@@ -22,11 +22,11 @@ export default function DefaultPluginPanel({
   pluginId,
 }: IProps) {
   const [isChecked, setIsChecked] = useState(() => {
-    const savedEnabledPlugins = localStorage.getItem(ENABLED_PLUGIN_IDS_KEY);
-    if (savedEnabledPlugins) {
+    const savedEnabledPluginIds = localStorage.getItem(ENABLED_PLUGIN_IDS_KEY);
+    if (savedEnabledPluginIds) {
       return Boolean(
-        (JSON.parse(savedEnabledPlugins) as Plugin[]).find(
-          (p) => p.id === pluginId
+        (JSON.parse(savedEnabledPluginIds) as PluginId[]).find(
+          (pid) => pid === pluginId
         )
       );
     }
