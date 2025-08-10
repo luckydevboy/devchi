@@ -1,30 +1,34 @@
 import { useRef, useState } from "react";
 
 import classes from "./styles.module.css";
+import type { PluginId } from "../../plugins/types";
 import type { Plugin } from "../../types";
 
 interface IProps {
   setIsPanelOpenTrigger: React.Dispatch<React.SetStateAction<boolean>>;
-  enabledPlugins: Plugin[];
+  enabledPluginIds: PluginId[];
+  registeredPlugins: Plugin[];
 }
 
 export default function SpeedDial({
   setIsPanelOpenTrigger,
-  enabledPlugins,
+  enabledPluginIds,
+  registeredPlugins,
 }: IProps) {
-  const [shownPlugins, setShownPlugins] = useState<Plugin[]>([]);
+  const [shownPluginIds, setShownPluginIds] = useState<PluginId[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const heldRef = useRef(false);
 
-  // TODO: please 
-  const showPlugin = (plugin: Plugin) => {
-    if (shownPlugins.find((p) => p.id === plugin.id)) {
-      plugin.onDisable?.();
-      setShownPlugins((prev) => prev.filter((p) => p.id !== plugin.id));
+  const showPlugin = (pluginId: PluginId) => {
+    const plugin = registeredPlugins.find((p) => p.id === pluginId);
+
+    if (shownPluginIds.find((pid) => pid === pluginId)) {
+      plugin?.onDisable?.();
+      setShownPluginIds((prev) => prev.filter((pid) => pid !== pluginId));
     } else {
-      plugin.onEnable?.();
-      setShownPlugins((prev) => [...prev, plugin]);
+      plugin?.onEnable?.();
+      setShownPluginIds((prev) => [...prev, pluginId]);
     }
   };
 
@@ -40,7 +44,7 @@ export default function SpeedDial({
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-    if (!heldRef.current && enabledPlugins.length) {
+    if (!heldRef.current && enabledPluginIds.length) {
       setIsOpen((prev) => !prev);
     }
   };
@@ -54,13 +58,13 @@ export default function SpeedDial({
 
     return (
       <div className={classes["speed-dial__children"]}>
-        {enabledPlugins.map((plugin) => (
+        {enabledPluginIds.map((pluginId) => (
           <button
             className={`${classes["speed-dial__btn"]} ${classes["speed-dial__btn--child"]}`}
-            key={plugin.id}
-            onClick={() => showPlugin(plugin)}
+            key={pluginId}
+            onClick={() => showPlugin(pluginId)}
           >
-            {plugin.shortName}
+            {registeredPlugins.find((p) => p.id === pluginId)?.shortName}
           </button>
         ))}
       </div>

@@ -1,7 +1,7 @@
-import type { PluginID } from "./plugins/types";
+import type { PluginId } from "./plugins/types";
 
 export interface Plugin {
-  id: PluginID;
+  id: PluginId;
   shortName: string;
   fullName: string;
   description: string;
@@ -9,7 +9,7 @@ export interface Plugin {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render?: (arg?: any) => React.ReactNode;
   renderPanel: (
-    setEnabledPluginsTrigger: React.Dispatch<React.SetStateAction<Plugin[]>>,
+    setEnabledPluginsTrigger: React.Dispatch<React.SetStateAction<PluginId[]>>,
     onRender: () => void
   ) => React.ReactNode;
   onEnable?: () => void;

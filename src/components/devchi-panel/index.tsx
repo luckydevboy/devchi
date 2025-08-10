@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 import classes from "./styles.module.css";
+import type { PluginId } from "../../plugins/types";
 import type { Plugin } from "../../types";
 
 interface IProps {
   isPanelOpen: boolean;
   onCloseTrigger: () => void;
-  enabledPlugins: Plugin[];
-  setEnabledPluginsTrigger: React.Dispatch<React.SetStateAction<Plugin[]>>;
+  enabledPluginIds: PluginId[];
+  setEnabledPluginsTrigger: React.Dispatch<React.SetStateAction<PluginId[]>>;
   registeredPlugins: Plugin[];
 }
 
@@ -15,7 +16,7 @@ export default function DevchiPanel({
   isPanelOpen,
   onCloseTrigger,
   setEnabledPluginsTrigger,
-  enabledPlugins,
+  enabledPluginIds,
   registeredPlugins,
 }: IProps) {
   const [pluginPanel, setPluginPanel] = useState<Plugin | null>(null);
@@ -69,10 +70,13 @@ export default function DevchiPanel({
         <div className={classes["devchi-panel__cards"]}>
           {pluginPanel ? (
             <div>
-              {/* TODO: Maybe better to use context for passing setEnabledPluginsTrigger */}
               {pluginPanel.renderPanel(setEnabledPluginsTrigger, () => {
-                if (!enabledPlugins.find((p) => p.id === pluginPanel.id)) {
-                  setEnabledPluginsTrigger((prev) => [...prev, pluginPanel]);
+                if (
+                  !enabledPluginIds.find(
+                    (pluginId) => pluginId === pluginPanel.id
+                  )
+                ) {
+                  setEnabledPluginsTrigger((prev) => [...prev, pluginPanel.id]);
                 }
               })}
             </div>
