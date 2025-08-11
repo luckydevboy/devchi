@@ -12,6 +12,6 @@ export interface Plugin {
     setEnabledPluginsTrigger: React.Dispatch<React.SetStateAction<PluginId[]>>,
     onRender: () => void
   ) => React.ReactNode;
-  onEnable?: () => void;
-  onDisable?: () => void;
+  onShow?: () => void;
+  onHide?: () => void;
 }

@@ -15,7 +15,7 @@ export default function SpeedDial({
   enabledPluginIds,
   registeredPlugins,
 }: IProps) {
-  const [shownPluginIds, setShownPluginIds] = useState<PluginId[]>([]);
+  const [shownPluginId, setShownPluginId] = useState<PluginId | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const heldRef = useRef(false);
@@ -23,12 +23,17 @@ export default function SpeedDial({
   const showPlugin = (pluginId: PluginId) => {
     const plugin = registeredPlugins.find((p) => p.id === pluginId);
 
-    if (shownPluginIds.find((pid) => pid === pluginId)) {
-      plugin?.onDisable?.();
-      setShownPluginIds((prev) => prev.filter((pid) => pid !== pluginId));
+    if (shownPluginId === pluginId) {
+      plugin?.onHide?.();
+      setShownPluginId(null);
     } else {
-      plugin?.onEnable?.();
-      setShownPluginIds((prev) => [...prev, pluginId]);
+      plugin?.onShow?.();
+      registeredPlugins.forEach((p) => {
+        if (p.id !== pluginId) {
+          p.onHide?.();
+        }
+      });
+      setShownPluginId(pluginId);
     }
   };
 

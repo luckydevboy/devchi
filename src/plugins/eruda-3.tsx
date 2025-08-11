@@ -13,7 +13,7 @@ export const Eruda3Plugin: Plugin = {
   shortName: "ER",
   fullName: "ERUDA",
   description: "ERUDA mobile console",
-  onEnable: async () => {
+  onShow: async () => {
     if (erudaInitialized) return;
 
     eruda.init({
@@ -26,7 +26,7 @@ export const Eruda3Plugin: Plugin = {
 
     eruda.show();
   },
-  onDisable: () => {
+  onHide: () => {
     if (erudaInitialized) {
       try {
         eruda.destroy();
