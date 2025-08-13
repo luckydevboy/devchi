@@ -4,7 +4,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export default function Root(props: IProps) {
+export default function RootStyles(props: IProps) {
   const { children } = props;
 
   return <div className={classes["devchi-root"]}>{children}</div>;

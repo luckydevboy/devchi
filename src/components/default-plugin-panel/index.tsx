@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 import classes from "./styles.module.css";
-import { ENABLED_PLUGIN_IDS_KEY } from "../..";
 import type { PluginId } from "../../plugins/types";
-import type { Plugin } from "../../types";
+import { ENABLED_PLUGIN_IDS_KEY } from "../devchi";
 import Switch from "../ui/switch";
 
 interface IProps {
